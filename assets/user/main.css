@@ -1,0 +1,75 @@
+/*Navbar Hover*/ 
+      #navbar .nav-link{
+        position: relative;
+        padding: 15px;
+        font-weight: bolder;
+      }
+      #navbar a:hover{
+        color: black;
+        font-weight: bold;
+
+      }
+      #navbar .nav-link:before{
+          position: absolute;
+          content:'';
+          width: 100%;
+          height: 0px;
+          left: 0px;
+          top: 0px;
+          /*background: #fff;*/
+          background: black;
+          opacity: .3;
+          transition: all 0.3s;
+        }
+      #navbar .nav-link:hover:before{
+        height: 100%;
+        width: 100%;
+      }
+    /*END NAVBAR HOVER*/
+
+
+    /*HIDDEN AND SHOW NAVBAR*/
+      .navbar { 
+        transition:all 0.2s linear; 
+      }
+      .affix {
+       top: -50px;  
+      }
+      /*END HIDDEN AND SHOW NAVBAR*/
+
+    /*ANIMATED TOGGLE*/
+      /*show a icon colapse*/
+      .icon-bar {
+        width: 22px; 
+        height: 2px;
+        background-color: #fff;
+        display: block;
+        transition: all 0.2s;
+        margin-top: 4px;
+      }
+      .navbar-toggler {
+        border: none;
+        background: transparent !important;
+      }
+      /*animated*/
+      .navbar-toggler .top-bar {
+        transform: rotate(45deg);
+        transform-origin: 10% 10%;
+      }
+      .navbar-toggler .middle-bar {
+        opacity: 0;
+      }
+      .navbar-toggler .bottom-bar {
+        transform: rotate(-45deg);
+        transform-origin: 10% 90%;
+      }
+      .navbar-toggler.collapsed .top-bar {
+        transform: rotate(0);
+      }
+      .navbar-toggler.collapsed .middle-bar {
+        opacity: 1;
+      }
+      .navbar-toggler.collapsed .bottom-bar {
+        transform: rotate(0);
+      }
+    /*END ANIMATED TOGGLE*/

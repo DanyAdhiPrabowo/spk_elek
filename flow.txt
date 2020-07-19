@@ -1,0 +1,10 @@
+Alur Program.
+
+1. Peserta mendaftarkan diri ke pantia secara offline,
+2. Panitia memasukkan data peserta kesistem, dan memberikan peserta user & password, user == npm+tahun seleksi, pass==npm.
+3. Peserta Login ke sistem dengan mengakses url (localhost/spk_saw).
+4. Setelah login peserta mengupload kriteria.
+5. setelah di upload, Panitia mengecek data yang diupload oleh peserta tersebut pada menu validasi.
+6. Jika data valid, maka table matrik akan bertambah.
+7. Jika tidak valid, maka table matrik tidak bertambah.
+8. setelah selesai, panitia baru bisa melakukan penghitungan saw pada menu rangking.
