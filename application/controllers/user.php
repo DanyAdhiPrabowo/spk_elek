@@ -11,7 +11,7 @@ class User extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->model(['model','validation']);
-		$this->load->library(['form_validation', 'encrypt']);
+		$this->load->library(['form_validation', 'encryption']);
 		
 
 	}

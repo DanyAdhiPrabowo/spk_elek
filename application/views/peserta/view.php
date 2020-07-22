@@ -27,7 +27,7 @@
           </thead>
           <tbody>
             <?php foreach($tampil as $t){ 
-              $id = str_replace(['=','+','/'], ['-','_','~'], $this->encrypt->encode($t->npm));
+              $id = str_replace(['=','+','/'], ['-','_','~'], $this->encryption->encrypt($t->npm));
               ?>
             <tr>
               <td><?=$t->angkatan ?></td>

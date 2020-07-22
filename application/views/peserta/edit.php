@@ -14,7 +14,7 @@
               </div>
               <form class="user" method="POST" action="<?=base_url('admin/peserta/update')?>">
                 <?php foreach ($tampil as $t): ?>
-                  <input type="hidden" name="id" value="<?=str_replace(['=','+','/'], ['-','_','~'], $this->encrypt->encode($t->npm)) ?>">
+                  <input type="hidden" name="id" value="<?=str_replace(['=','+','/'], ['-','_','~'], $this->encryption->encrypt($t->npm)) ?>">
                 <div class="form-group mb-3">
                   <label class="text-dark">Tahun</label>
                   <input type="text" class="form-control" placeholder="Tahun Angkatan..." name="angkatan" value="<?=set_value('angkatan', $t->angkatan) ?>" onkeypress="return inputAngka(event)" readonly>

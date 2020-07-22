@@ -44,7 +44,7 @@
           </thead>
           <tbody>
             <?php foreach($tampil as $t){ 
-              $id = str_replace(['=','+','/'], ['-','_','~'], $this->encrypt->encode($t->npm));
+              $id = str_replace(['=','+','/'], ['-','_','~'], $this->encryption->encrypt($t->npm));
               $jumlah = $t->ketua+$t->sekertaris+$t->bendahara+$t->co+$t->anggota;
 
             ?>
@@ -66,7 +66,7 @@
 
       <div class="pt-4">
         <?php
-        $tahun = str_replace(['=','+','/'], ['-','_','~'], $this->encrypt->encode($tahunSeleksi));
+        $tahun = str_replace(['=','+','/'], ['-','_','~'], $this->encryption->encrypt($tahunSeleksi));
         
         if($btn==1){
           echo "<a href='".base_url('admin/ranking/proses/'.$tahun.'/'.$angkatan)."' class='btn btn-md btn-danger'>Proses Data</a>";

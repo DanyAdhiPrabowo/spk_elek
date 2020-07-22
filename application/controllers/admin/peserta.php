@@ -12,7 +12,7 @@ class Peserta extends CI_Controller {
 		parent::__construct();
 		if($this->session->userdata('masuk')!=TRUE && $this->session->userdata('access')!='admin'){$url=base_url('admin/login');redirect($url);};
 		$this->load->model(['model','validation']);
-		$this->load->library(['form_validation', 'encrypt']);
+		$this->load->library(['form_validation', 'encryption']);
 
 	}
 
@@ -92,7 +92,7 @@ class Peserta extends CI_Controller {
 	{
 		if(!isset($id)) show_404();
 		$id = str_replace(['-','_','~'],['=','+','/'],$id);
-		$id = $this->encrypt->decode($id);
+		$id = $this->encryption->decrypt($id);
 		$this->model->delete($this->table, 'npm' , $id);
 		$this->session->set_flashdata('flash', '<div class="alert alert-danger alert-dismissible fade show" role="alert">Data telah di hapus.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 		redirect('admin/peserta');
@@ -102,7 +102,7 @@ class Peserta extends CI_Controller {
 	{
 		if(!isset($id)) show_404();
 		$id = str_replace(['-','_','~'],['=','+','/'],$id);
-		$id = $this->encrypt->decode($id);
+		$id = $this->encryption->decrypt($id);
 
 		$data = [
 					'content'	=> $this->folder.('edit'),
@@ -119,7 +119,7 @@ class Peserta extends CI_Controller {
 	public function update()
 	{
 		$post 		= $this->input->post();
-		$id 		= $this->encrypt->decode(str_replace(['-','_','~'],['=','+','/'],$post['id']));
+		$id 		= $this->encryption->decrypt(str_replace(['-','_','~'],['=','+','/'],$post['id']));
 		$npm		= $post['npm'];
 		$oldNpm		= $post['oldNpm'];
 
@@ -156,7 +156,7 @@ class Peserta extends CI_Controller {
 
 	public function reset($id)
 	{
-		$id		= $this->encrypt->decode(str_replace(['-','_','~'],['=','+','/'],$id));
+		$id		= $this->encryption->decrypt(str_replace(['-','_','~'],['=','+','/'],$id));
 		$cek   	= $this->model->get_by($this->table, 'npm', $id)->result_array();
 
 		$data = ['password'=> password_hash($cek[0]['npm'], PASSWORD_DEFAULT) ];
