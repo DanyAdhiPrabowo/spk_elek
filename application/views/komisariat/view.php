@@ -24,7 +24,7 @@
           </thead>
           <tbody>
             <?php $no=1; foreach($tampil as $t){ 
-              $id = str_replace(['=','+','/'], ['-','_','~'], $this->encrypt->encode($t->idKomisariat));
+              $id = str_replace(['=','+','/'], ['-','_','~'], $this->encryption->encrypt($t->idKomisariat));
               $idd=$t->idKomisariat
               ?>
             <tr>
@@ -97,7 +97,7 @@
 <!-- Modal Edit -->
   <?php foreach ($tampil as $tm) { 
     $a    = $tm->idKomisariat;
-    $iid   = str_replace(['=','+','/'], ['-','_','~'], $this->encrypt->encode($a));
+    $iid   = str_replace(['=','+','/'], ['-','_','~'], $this->encryption->encrypt($a));
     ?>
     <div class="modal fade" id="editModal<?=$a?>" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">

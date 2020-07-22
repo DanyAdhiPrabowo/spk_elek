@@ -11,7 +11,7 @@ class Validasi extends CI_Controller {
 		parent::__construct();
 		if($this->session->userdata('masuk')!=TRUE && $this->session->userdata('access')!='admin'){$url=base_url('admin/login');redirect($url);};
 		$this->load->model(['model','validation']);
-		$this->load->library(['form_validation', 'encrypt']);
+		$this->load->library(['form_validation', 'encryption']);
 
 	}
 
@@ -54,7 +54,7 @@ class Validasi extends CI_Controller {
 	{
 		if(!isset($id)) show_404();
 		$id = str_replace(['-','_','~'],['=','+','/'],$id);
-		$id = $this->encrypt->decode($id);
+		$id = $this->encryption->decrypt($id);
 		$data= ['statusValidasi'=>1];
 		$this->model->update($this->table, 'idValidasi', $id, $data);
 
@@ -66,7 +66,7 @@ class Validasi extends CI_Controller {
 	{
 		if(!isset($id)) show_404();
 		$id 			= str_replace(['-','_','~'],['=','+','/'],$id);
-		$id 			= $this->encrypt->decode($id);
+		$id 			= $this->encryption->decrypt($id);
 		$npm 			= $this->uri->segment(5);
 		$tahunSeleksi 	= $this->uri->segment(6);
 		$data 	= ['statusValidasi'=>2];

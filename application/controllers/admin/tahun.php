@@ -12,7 +12,7 @@ class Tahun extends CI_Controller {
 		parent::__construct();
 		if($this->session->userdata('masuk')!=TRUE && $this->session->userdata('access')!='admin'){$url=base_url('admin/login');redirect($url);};
 		$this->load->model(['model','validation']);
-		$this->load->library(['form_validation', 'encrypt']);
+		$this->load->library(['form_validation', 'encryption']);
 
 	}
 
@@ -57,7 +57,7 @@ class Tahun extends CI_Controller {
 	public function delete($tahun=null)
 	{
 		if(!isset($tahun)) show_404();
-		$tahun = $this->encrypt->decode(str_replace(['-','_','~'],['=','+','/'],$tahun));
+		$tahun = $this->encryption->decrypt(str_replace(['-','_','~'],['=','+','/'],$tahun));
 		$this->model->delete($this->table, 'tahun' , $tahun);
 		$this->session->set_flashdata('flash', '<div class="alert alert-danger alert-dismissible fade show" role="alert">Data telah di hapus.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 		redirect('admin/tahun');
@@ -91,7 +91,7 @@ class Tahun extends CI_Controller {
 	public function updateStatus($tahun=null)
 	{
 		if(!isset($tahun)) show_404();
-		$tahun = $this->encrypt->decode(str_replace(['-','_','~'],['=','+','/'],$tahun));
+		$tahun = $this->encryption->decrypt(str_replace(['-','_','~'],['=','+','/'],$tahun));
 
 		$cekStatus = $this->model->get_by($this->table, 'tahun', $tahun)->result_array();
 

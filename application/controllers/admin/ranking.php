@@ -12,7 +12,7 @@ class Ranking extends CI_Controller {
 		parent::__construct();
 		if($this->session->userdata('masuk')!=TRUE && $this->session->userdata('access')!='admin'){$url=base_url('admin/login');redirect($url);};
 		$this->load->model(['model','validation']);
-		$this->load->library(['form_validation', 'encrypt']);
+		$this->load->library(['form_validation', 'encryption']);
 
 	}
 
@@ -48,7 +48,7 @@ class Ranking extends CI_Controller {
 	}
 	public function proses($th=null, $angkatan=null){
 		if(!isset($th)) show_404();
-		$tahunSeleksi = $this->encrypt->decode(str_replace(['-','_','~'],['=','+','/'],$th));
+		$tahunSeleksi = $this->encryption->decrypt(str_replace(['-','_','~'],['=','+','/'],$th));
 		$bobot = [10,8,6,4,2];
 		if($tahunSeleksi==''){
 			$data = ['content'	=> $this->folder.('proses'),

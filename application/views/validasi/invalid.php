@@ -29,7 +29,7 @@
           </thead>
           <tbody>
             <?php foreach($tampil as $t){ 
-              $id = str_replace(['=','+','/'], ['-','_','~'], $this->encrypt->encode($t->idValidasi));
+              $id = str_replace(['=','+','/'], ['-','_','~'], $this->encryption->encrypt($t->idValidasi));
               $idd= $t->idValidasi;
               ?>
             <tr>
