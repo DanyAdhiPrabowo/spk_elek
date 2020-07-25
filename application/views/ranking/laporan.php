@@ -20,9 +20,6 @@
                   <option value="<?=$th->tahun?>"><?=$th->tahun;?></option>
               <?php endforeach; ?>
             </select>
-            <select class="d-inline-block custom-select" name="angkatan" id="angkatan">
-              <option value="">--Tahun Angkatan--</option>
-            </select>
             <button type="submit" class="btn btn-primary btn-md ml-3" style="margin-left: -10px">Pilih</button>
           </div>
         </form>
@@ -32,8 +29,7 @@
           <thead>
             <tr>
               <th width="110px">Tahun Seleksi</th>
-              <th width="15px">Angkatan</th>
-              <th >Nama</th>
+              <th >Nama Komisariat</th>
               <th width="100px">Total Poin</th>
               <th width="100px">Poin SAW</th>
               <th width="100px">Keterangan</th>
@@ -43,8 +39,7 @@
             <?php foreach($tampil as $t){ ?>
             <tr>
               <td><?=$t->tahunSeleksi ?></td>
-              <td><?=$t->angkatan ?></td>
-              <td><?=$t->nama?></td>
+              <td><?=$t->namaKomisariat?></td>
               <td><?=$t->totalPoin?></td>
               <td><?=$t->poinSAW?></td>
               <td><?=$t->keterangan?></td>
@@ -57,22 +52,3 @@
   </div>
 
 </div>
-
-
-<script>
-    $(document).ready(function(){
-
-      $('#tahun').change(function(){
-        var tahun = $(this).val();
-        $.ajax({
-          type  : 'POST',
-          url   : '<?=base_url('admin/ranking/angkatanTahun')?>',
-          data  : 'tahun ='+tahun,
-          success : function(data){
-            console.log(data);
-            $('#angkatan').html(data);
-          }
-        });
-      });
-    });
-  </script>

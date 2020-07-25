@@ -34,46 +34,25 @@
               <table>
                 <?php foreach ($tampil as $t):?>
                 <tr>
-                  <th width="150px">NPM</th>
+                  <th width="150px">Kode Komisariat</th>
                   <td width="20px">:</td>
-                  <td><?=$t->npm ?></td>
+                  <td><?=$t->kodeKomisariat ?></td>
                 </tr>
                 <tr>
                   <th>Nama</th>
                   <td width="5px">:</td>
-                  <td><?=$t->nama ?></td>
-                </tr>
-                <tr>
-                  <th>Gender</th>
-                  <td width="5px">:</td>
-                  <td><?php if($t->jk=='l'){echo 'Laki-Laki';}else{echo 'Perempuan';} ?></td>
-                </tr>
-                <tr>
-                  <th>Tanggal Lahir</th>
-                  <td width="5px">:</td>
-                  <td><?=$t->tanggalLahir ?></td>
-                </tr>
-                <tr>
-                  <th>Tempat Lahir</th>
-                  <td width="5px">:</td>
-                  <td><?=$t->tempatLahir ?></td>
+                  <td><?=$t->namaKomisariat ?></td>
                 </tr>
                 <tr>
                   <th>Alamat</th>
                   <td width="5px">:</td>
-                  <td><?=$t->alamat ?></td>
+                  <td><?=$t->alamatKomisariat ?></td>
                 </tr>
                 <tr>
                   <th>No HP</th>
                   <td width="5px">:</td>
-                  <td><?=$t->noHP ?></td>
+                  <td><?=$t->handphone ?></td>
                 </tr>
-                <tr>
-                  <th>Komisariat</th>
-                  <td width="5px">:</td>
-                  <td><?=$t->komisariat ?></td>
-                </tr>
-
               <?php endforeach; ?>
               </table>
               <div class="my-2 ">

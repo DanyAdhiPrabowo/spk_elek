@@ -9,7 +9,7 @@
         <span class="m-0 font-weight-bold text-primary">Data <?=$section ?></span>
       </div>
       <div class="ml-auto">
-        <a class="btn btn-sm btn-primary text-light" href="#" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus"></i> <b>Tambah</b></a>
+        <a class="btn btn-sm btn-primary text-light" href="<?=base_url('admin/komisariat/add')?>"><i class="fa fa-plus"></i> <b>Tambah</b></a>
       </div>
     </div>
     <div class="card-body">
@@ -18,20 +18,29 @@
           <thead>
             <tr>
               <th width="10px">NO</th>
+              <th>Kode Komisariat</th>
               <th>Nama Komisariat</th>
+              <th>Alamat Komisariat</th>
+              <th>No Handphone</th>
               <th width="100px" class="text-center">Aksi</th>
             </tr>
           </thead>
           <tbody>
             <?php $no=1; foreach($tampil as $t){ 
-              $id = str_replace(['=','+','/'], ['-','_','~'], $this->encryption->encrypt($t->idKomisariat));
-              $idd=$t->idKomisariat
+              $id = str_replace(['=','+','/'], ['-','_','~'], $this->encryption->encrypt($t->kodeKomisariat));
               ?>
             <tr>
               <td><?=$no ?></td>
+              <td><?=$t->kodeKomisariat ?></td>
               <td><?=$t->namaKomisariat ?></td>
-              <td><a href="" class="btn btn-sm btn-warning" title="Edit" data-toggle="modal" data-target="#editModal<?=$idd?>">Edit</a>
+              <td><?=$t->alamatKomisariat ?></td>
+              <td><?=$t->handphone ?></td>
+              <td>
+                <div class="btn-group" role="group">
+                  <a href="<?=base_url('admin/komisariat/edit/'.$id) ?>" class="btn btn-sm btn-warning" title="Edit">Edit</a>
                   <button href="" onclick="deleteConfirm('<?=base_url('admin/komisariat/delete/'.$id) ?>')" class="btn btn-sm btn-danger" title="Hapus" data-target="#modalDelete" data-toggle="modal">Hapus</button>
+                  <a href="<?=base_url('admin/komisariat/reset/'.$id) ?>" class="btn btn-sm btn-success" title="Reset Password">Reset</a>
+                </div>
               </td>
             </tr>
           <?php $no++; };  ?>
@@ -65,67 +74,6 @@
     </div>
   </div>
 <!-- End Modal Delete -->
-
-
-<!-- Modal add -->
-  <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title font-weight-bold" id="exampleModalLabel">Tambah Data</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <form method="POST" action="<?=base_url('admin/komisariat/add')?>">
-          
-          <div class="modal-body">
-            <div>          
-              <input type="text" name="nama" placeholder="Nama Komisariat..." class="form-control" id="nama">
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-sm btn-info" id="add">Tambah</button>
-        </form>
-          </div>
-      </div>
-    </div>
-  </div>
-<!-- End Modal add -->
-
-
-<!-- Modal Edit -->
-  <?php foreach ($tampil as $tm) { 
-    $a    = $tm->idKomisariat;
-    $iid   = str_replace(['=','+','/'], ['-','_','~'], $this->encryption->encrypt($a));
-    ?>
-    <div class="modal fade" id="editModal<?=$a?>" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title font-weight-bold" id="exampleModalLabel">Edit Data</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <form method="POST" action="<?=base_url('admin/komisariat/edit')?>">
-            
-            <div class="modal-body">
-              <div> 
-                <input type="hidden" name="oldNama" value="<?=$tm->namaKomisariat?>">
-                <input type="text" name="namaEdit" placeholder="Nama Komisariat..." class="form-control" id="nama" value="<?=$tm->namaKomisariat ?>" autocomplete="off">
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-sm btn-info" id="add">Update</button>
-          </form>
-            </div>
-        </div>
-      </div>
-    </div>
-  <?php } ?>
-<!-- End Modal edit -->
-
 
 
 <script>

@@ -50,9 +50,6 @@ $aktif = 'active';
             <a class="nav-link <?=($hal=='')?$aktif:''; ?>" href="<?=base_url('') ?>">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link <?=($hal=='peserta')?$aktif:''; ?>" href="<?=base_url('peserta') ?>">Peserta</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link <?=($hal=='rangking')?$aktif:''; ?>" href="<?=base_url('rangking')?>">Rangking</a>
           </li>
 

@@ -21,54 +21,30 @@ defined('BASEPATH') OR exit ('No script direct access allowed');
 			];
 		}
 
-		public function val_peserta()
+		public function val_komisariat()
 		{
 			return [
 				[
-					'field'	=> 'angkatan',
-					'label'	=> 'Angkatan',
+					'field'	=> 'kodeKomisariat',
+					'label'	=> 'Kode Komisariat',
 					'rules'	=> 'required|rtrim',
 					'errors'=> ['required'=>'Form <b>%s</b> tidak boleh kosong.']
 				],
 				[
-					'field'	=> 'npm',
-					'label'	=> 'NPM',
+					'field'	=> 'namaKomisariat',
+					'label'	=> 'Nama Komisariat',
 					'rules'	=> 'required|rtrim',
 					'errors'=> ['required'=>'Form <b>%s</b> tidak boleh kosong.']
 				],
 				[
-					'field'	=> 'nama',
-					'label'	=> 'Nama',
+					'field'	=> 'alamatKomisariat',
+					'label'	=> 'Alamat Komisariat',
 					'rules'	=> 'required|rtrim',
 					'errors'=> ['required'=>'Form <b>%s</b> tidak boleh kosong.']
 				],
 				[
-					'field'	=> 'tgl',
-					'label'	=> 'Tanggal Lahir',
-					'rules'	=> 'required|rtrim',
-					'errors'=> ['required'=>'Form <b>%s</b> tidak boleh kosong.']
-				],
-				[
-					'field'	=> 'tempat',
-					'label'	=> 'Tempat Lahir',
-					'rules'	=> 'required|rtrim',
-					'errors'=> ['required'=>'Form <b>%s</b> tidak boleh kosong.']
-				],
-				[
-					'field'	=> 'alamat',
-					'label'	=> 'Alamat',
-					'rules'	=> 'required|rtrim',
-					'errors'=> ['required'=>'Form <b>%s</b> tidak boleh kosong.']
-				],
-				[
-					'field'	=> 'hp',
-					'label'	=> 'No HP',
-					'rules'	=> 'required|rtrim',
-					'errors'=> ['required'=>'Form <b>%s</b> tidak boleh kosong.']
-				],
-				[
-					'field'	=> 'komisariat',
-					'label'	=> 'Komisariat',
+					'field'	=> 'handphone',
+					'label'	=> 'No handphone',
 					'rules'	=> 'required|rtrim',
 					'errors'=> ['required'=>'Form <b>%s</b> tidak boleh kosong.']
 				],
@@ -85,8 +61,8 @@ defined('BASEPATH') OR exit ('No script direct access allowed');
 					'errors'=> ['required' 	=> 'Form <b>%s</b> tidak boleh kosong']
 				],
 				[
-					'field'	=> 'jabatan',
-					'label'	=> 'Nama Jabatan',
+					'field'	=> 'tingkatan',
+					'label'	=> 'Tingkatan',
 					'rules'	=> 'required|rtrim',
 					'errors'=> ['required'=>'Form <b>%s</b> tidak boleh kosong.']
 				]
@@ -166,11 +142,5 @@ defined('BASEPATH') OR exit ('No script direct access allowed');
 				]
 			];
 		}
-
-		
-
-
-
-
 	}
 ?>

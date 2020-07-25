@@ -42,11 +42,6 @@ $aktif  = 'active';
           <i class="fas fa-fw fa-stream"></i>
           <span>Tahun</span></a>
       </li>
-      <li class="nav-item <?=($hal=='peserta')?$aktif:''; ?>">
-        <a class="nav-link" href="<?=base_url('admin/peserta')?>">
-          <i class="fas fa-fw fa-users"></i>
-          <span>Data Peserta</span></a>
-      </li>
       <li class="nav-item <?=($hal=='validasi')?$aktif:''; ?>">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-file-alt"></i>

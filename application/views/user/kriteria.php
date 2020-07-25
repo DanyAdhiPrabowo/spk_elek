@@ -44,11 +44,11 @@
                 <td><?=$no?></td>
                 <td><?=$t->tahunSeleksi?></td>
                 <td><?=$t->kegiatan?></td>
-                <td><?php if($t->jabatan==1){echo 'Ketua Panitia';}
-                          elseif($t->jabatan==2){echo 'Sekertaris';}
-                          elseif($t->jabatan==3){echo 'Bendahara';}
-                          elseif($t->jabatan==4){echo 'Ketua CO';}
-                          else{echo 'Anggota';}
+                <td><?php if($t->tingkatan==1){echo 'Nasional';}
+                          elseif($t->tingkatan==2){echo 'Provinsi';}
+                          elseif($t->tingkatan==3){echo 'Kabupatan / Kota';}
+                          elseif($t->tingkatan==4){echo 'Universitas';}
+                          else{echo 'Fakultas';}
                     ?></td>
                 <td align="center"><img src="<?=base_url('assets/validasi/').$t->foto?>" width="80px"></td>
                 <td><?php if($t->statusValidasi==0){echo "<div class='btn btn-sm btn-secondary' title='Data Menunggu Untuk Di Validasi'><i class='fa fa-hourglass-half'></i> Pending</div>";}

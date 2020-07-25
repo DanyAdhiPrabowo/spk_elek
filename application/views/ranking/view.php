@@ -11,7 +11,7 @@
     </div>
     <div class="card-body">
       <div class="mb-5">
-        <label class="text-dark font-weight-bold">Pilih Tahun dan Angkatan</label>
+        <label class="text-dark font-weight-bold">Pilih Tahun Seleksi</label>
         <form method="POST" action="<?=base_url('admin/ranking') ?>">
           <div class="input-group col-lg-6 p-0" >
             <select class="d-inline-block custom-select" name="tahun" id="tahun">
@@ -19,9 +19,6 @@
               <?php foreach ($tahun as $th): ?>
                   <option value="<?=$th->tahun?>"><?=$th->tahun;?></option>
               <?php endforeach; ?>
-            </select>
-            <select class="d-inline-block custom-select" name="angkatan" id="angkatan">
-              <option value="">--Pilih Angkatan--</option>
             </select>
             <button type="submit" class="btn btn-primary btn-md ml-3" style="margin-left: -10px">Pilih</button>
           </div>
@@ -32,31 +29,29 @@
           <thead>
             <tr>
               <th>Tahun Seleksi</th>
-              <th>Angkatan</th>
               <th>Nama</th>
-              <th width="15px">Ketua</th>
-              <th width="15px">Sekertaris</th>
-              <th width="15px">Bendahara</th>
-              <th width="15px">CO</th>
-              <th width="15px">Anggota</th>
+              <th width="15px">Nasional</th>
+              <th width="15px">Provinsi</th>
+              <th width="15px">Kabupaten/Kota</th>
+              <th width="15px">Universitas</th>
+              <th width="15px">Fakultas</th>
               <th width="30px">Jumlah</th>
             </tr>
           </thead>
           <tbody>
             <?php foreach($tampil as $t){ 
-              $id = str_replace(['=','+','/'], ['-','_','~'], $this->encryption->encrypt($t->npm));
-              $jumlah = $t->ketua+$t->sekertaris+$t->bendahara+$t->co+$t->anggota;
+              $id = str_replace(['=','+','/'], ['-','_','~'], $this->encryption->encrypt($t->kodeKomisariat));
+              $jumlah = $t->nasional+$t->provinsi+$t->kabupatenKota+$t->universitas+$t->fakultas;
 
             ?>
             <tr>
               <td><?=$t->tahunSeleksi ?></td>
-              <td><?=$t->angkatan ?></td>
-              <td><?=$t->nama ?></td>
-              <td><?=$t->ketua?></td>
-              <td><?=$t->sekertaris?></td>
-              <td><?=$t->bendahara?></td>
-              <td><?=$t->co?></td>
-              <td><?=$t->anggota?></td>
+              <td><?=$t->namaKomisariat ?></td>
+              <td><?=$t->nasional?></td>
+              <td><?=$t->provinsi?></td>
+              <td><?=$t->kabupatenKota?></td>
+              <td><?=$t->universitas?></td>
+              <td><?=$t->fakultas?></td>
               <td><?=$jumlah?></td>
             </tr>
           <?php } ?>
@@ -68,8 +63,8 @@
         <?php
         $tahun = str_replace(['=','+','/'], ['-','_','~'], $this->encryption->encrypt($tahunSeleksi));
         
-        if($btn==1){
-          echo "<a href='".base_url('admin/ranking/proses/'.$tahun.'/'.$angkatan)."' class='btn btn-md btn-danger'>Proses Data</a>";
+        if($btn==1 && count($tampil)>1){
+          echo "<a href='".base_url('admin/ranking/proses/'.$tahun)."' class='btn btn-md btn-danger'>Proses Data</a>";
         }
          ?>
         
@@ -79,21 +74,3 @@
   </div>
 
 </div>
-
-<script>
-    $(document).ready(function(){
-
-      $('#tahun').change(function(){
-        var tahun = $(this).val();
-        $.ajax({
-          type  : 'POST',
-          url   : '<?=base_url('admin/ranking/angkatanTahun')?>',
-          data  : 'tahun ='+tahun,
-          success : function(data){
-            console.log(data);
-            $('#angkatan').html(data);
-          }
-        });
-      });
-    });
-  </script>
