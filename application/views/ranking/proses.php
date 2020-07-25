@@ -16,25 +16,25 @@
           <thead>
             <tr>
               <th>Nama</th>
-              <th width="110px">Ketua</th>
-              <th width="110px">Sekertaris</th>
-              <th width="110px">Bendahara</th>
-              <th width="110px">CO</th>
-              <th width="110px">Anggota</th>
+              <th width="110px">Nasional</th>
+              <th width="110px">Provinsi</th>
+              <th width="110px">Kabupaten / Kota</th>
+              <th width="110px">Universitas</th>
+              <th width="110px">Fakultas</th>
               <th width="50px">Jumlah</th>
             </tr>
           </thead>
           <tbody>
             <?php foreach($tampil as $t){ 
-              $jumlah = $t->ketua+$t->sekertaris+$t->bendahara+$t->co+$t->anggota;
+              $jumlah = $t->nasional+$t->provinsi+$t->kabupatenKota+$t->universitas+$t->fakultas;
             ?>
             <tr>
-              <td><?=$t->nama ?></td>
-              <td><?=$t->ketua?></td>
-              <td><?=$t->sekertaris?></td>
-              <td><?=$t->bendahara?></td>
-              <td><?=$t->co?></td>
-              <td><?=$t->anggota?></td>
+              <td><?=$t->namaKomisariat ?></td>
+              <td><?=$t->nasional?></td>
+              <td><?=$t->provinsi?></td>
+              <td><?=$t->kabupatenKota?></td>
+              <td><?=$t->universitas?></td>
+              <td><?=$t->fakultas?></td>
               <td><?=$jumlah?></td>
             </tr>
           <?php } ?>
@@ -48,23 +48,23 @@
           <thead>
             <tr>
               <th>Nama</th>
-              <th width="110px">Ketua</th>
-              <th width="110px">Sekertaris</th>
-              <th width="110px">Bendahara</th>
-              <th width="110px">CO</th>
-              <th width="110px">Anggota</th>
+              <th width="110px">Nasional</th>
+              <th width="110px">Provinsi</th>
+              <th width="110px">Kabupaten / Kota</th>
+              <th width="110px">Universitas</th>
+              <th width="110px">Fakultas</th>
             </tr>
           </thead>
           <tbody>
             <?php foreach($tampil as $t){ 
               foreach ($max as $m) { ?>
             <tr>
-              <td><?=$t->nama?></td>
-              <td><?php if($m->ketua!=0){echo round($t->ketua/$m->ketua,2);}else{echo '0';}?></td>
-              <td><?php if($m->sekertaris!=0){echo round($t->sekertaris/$m->sekertaris,2);}else{echo '0';}?></td>
-              <td><?php if($m->bendahara!=0){echo round($t->bendahara/$m->bendahara,2);}else{echo '0';}?></td>
-              <td><?php if($m->co!=0){echo round($t->co/$m->co,2);}else{echo '0';}?></td>
-              <td><?php if($m->anggota!=0){echo round($t->anggota/$m->anggota,2);}else{echo '0';}?></td>
+              <td><?=$t->namaKomisariat?></td>
+              <td><?php if($m->nasional!=0){echo round($t->nasional/$m->nasional,2);}else{echo '0';}?></td>
+              <td><?php if($m->provinsi!=0){echo round($t->provinsi/$m->provinsi,2);}else{echo '0';}?></td>
+              <td><?php if($m->kabupatenKota!=0){echo round($t->kabupatenKota/$m->kabupatenKota,2);}else{echo '0';}?></td>
+              <td><?php if($m->universitas!=0){echo round($t->universitas/$m->universitas,2);}else{echo '0';}?></td>
+              <td><?php if($m->fakultas!=0){echo round($t->fakultas/$m->fakultas,2);}else{echo '0';}?></td>
             </tr>
             <?php }; ?>
           <?php } ?>
@@ -74,7 +74,7 @@
 
       <div class="table-responsive py-4">
         <h3 class="font-weight-bold text-dark pb-3">Perangkingan</h3>
-        <form method="POST" action="<?=base_url('admin/ranking/save/'.$th.'/'.$angkatan) ?>">
+        <form method="POST" action="<?=base_url('admin/ranking/save/'.$th) ?>">
         <table class="table table-bordered " width="100%" cellspacing="0">
           <thead>
             <tr>
@@ -91,14 +91,14 @@
             if($tampil!=null){
               foreach($tampil as $t){
                 foreach ($max as $m) {
-                  $jumlah = $t->ketua+$t->sekertaris+$t->bendahara+$t->co+$t->anggota;
-                  $poin   = ( ($this->model->bagi($t->ketua,$m->ketua)*$bobot[0])+
-                               ($this->model->bagi($t->sekertaris,$m->sekertaris)*$bobot[1])+
-                               ($this->model->bagi($t->bendahara,$m->bendahara)*$bobot[2])+
-                               ($this->model->bagi($t->co,$m->co)*$bobot[3])+
-                               ($this->model->bagi($t->anggota,$m->anggota)*$bobot[4])
+                  $jumlah = $t->nasional+$t->provinsi+$t->kabupatenKota+$t->universitas+$t->fakultas;
+                  $poin   = ( ($this->model->bagi($t->nasional,$m->nasional)*$bobot[0])+
+                               ($this->model->bagi($t->provinsi,$m->provinsi)*$bobot[1])+
+                               ($this->model->bagi($t->kabupatenKota,$m->kabupatenKota)*$bobot[2])+
+                               ($this->model->bagi($t->universitas,$m->universitas)*$bobot[3])+
+                               ($this->model->bagi($t->fakultas,$m->fakultas)*$bobot[4])
                             );
-                  $data[]=array('npm'=>$t->npm,'nama'=>$t->nama, 'totalPoin'=>$jumlah,'poinSAW'=>$poin);
+                  $data[]=array('kodeKomisariat'=>$t->kodeKomisariat,'namaKomisariat'=>$t->namaKomisariat, 'totalPoin'=>$jumlah,'poinSAW'=>$poin);
                 };
               }
             }else{
@@ -117,13 +117,13 @@
               $no=1;
               foreach ($data as $d) { ?>
                 <tr>
-                  <td><?=$d['nama']?></td>
+                  <td><?=$d['namaKomisariat']?></td>
                   <td><?=$d['totalPoin'] ?></td>
                   <td><?=round($d['poinSAW'],3) ?></td>
                   <td><?='Juara '.$no ?></td>
                 </tr>
-                <input type="hidden" name="npm[]" value="<?=$d['npm'] ?>">
-                <input type="hidden" name="nama[]" value="<?=$d['nama'] ?>">
+                <input type="hidden" name="kodeKomisariat[]" value="<?=$d['kodeKomisariat'] ?>">
+                <input type="hidden" name="namaKomisariat[]" value="<?=$d['namaKomisariat'] ?>">
                 <input type="hidden" name="totalPoin[]" value="<?=$d['totalPoin'] ?>">
                 <input type="hidden" name="poinSAW[]" value="<?=round($d['poinSAW'],3) ?>">
                 <input type="hidden" name="juara[]" value="<?='juara '.$no ?>">

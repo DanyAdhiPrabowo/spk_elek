@@ -51,17 +51,16 @@ class User extends CI_Controller {
 	}
 
 
-	public function rangking($tahun=null, $angkatan=null)
+	public function rangking($tahun=null)
 	{
 		$tahun 		= $this->input->post('tahun');
-		$angkatan 	= $this->input->post('angkatan');
 
-		if($tahun!=null && $angkatan!=null){
+		if($tahun!=null ){
 			$data = [
 						'content'	=> $this->folder.('rangking'),
 						'section'	=> 'Rangking',
 						'tahun'		=> $this->model->getYearsMatrik()->result(),
-						'rangking' 	=> $this->model->getRangkingUser($tahun, $angkatan)
+						'rangking' 	=> $this->model->getRangkingUser($tahun)
 					];
 			$this->load->view('user/template', $data);
 		}else{
@@ -96,24 +95,22 @@ class User extends CI_Controller {
 	}
 
 
-	public function kriteria()
-	{
+	public function kriteria(){
 		if($this->session->userdata('masuk')!=TRUE && $this->session->userdata('access')!='user'){ $url=base_url('user');redirect($url); };
 
-		$npm 				= $this->session->userdata('npm');
+		$kodeKomisariat 	= $this->session->userdata('kodeKomisariat');
 		$cekTahunSeleksi 	= count($this->model->get_by('tahun', 'status', '1')->result_array());
 
 		$data = [
 					'content'	=> $this->folder.('kriteria'),
 					'section'	=> 'Kriteria',
-					'tampil'	=> $this->model->get_by('validasi', 'npm', $npm)->result(),
+					'tampil'	=> $this->model->get_by('validasi', 'kodeKomisariat', $kodeKomisariat)->result(),
 					'seleksi'	=> $cekTahunSeleksi
 				];
 			$this->load->view('user/template', $data);
 	}
 
-	public function tambah()
-	{
+	public function tambah(){
 		// cek tahun ada aktif nggak
 		if($this->session->userdata('masuk')!=TRUE && $this->session->userdata('access')!='user'){ $url=base_url('user');redirect($url); };
 
@@ -130,8 +127,7 @@ class User extends CI_Controller {
 	}
 
 	// save kriteria peserta
-	public function save()
-	{
+	public function save(){
 		if($this->session->userdata('masuk')!=TRUE && $this->session->userdata('access')!='user'){ $url=base_url('user');redirect($url); };
 
 		$validasi 	= $this->form_validation->set_rules($this->validation->val_kriteria());
@@ -141,11 +137,10 @@ class User extends CI_Controller {
 		if($validasi->run()==True){
 			$data = [
 						'idValidasi'		=> null,
-						'npm'				=> $this->session->userdata('npm'),
-						'angkatan'			=> $this->session->userdata('angkatan'),
+						'kodeKomisariat'	=> $this->session->userdata('kodeKomisariat'),
 						'tahunSeleksi'		=> $ambilTahunSeleksi[0]['tahun'],
 						'kegiatan'			=> $this->input->post('kegiatan'),
-						'jabatan'			=> $this->input->post('jabatan'),
+						'tingkatan'			=> $this->input->post('tingkatan'),
 						'foto'				=> $this->upload(),
 						'statusValidasi'	=> 0,
 					];
@@ -174,8 +169,7 @@ class User extends CI_Controller {
 	}
 
 
-	private function upload()
-	{
+	private function upload(){
 		$name = $_FILES['foto']['name'];
 
 		$config['upload_path'] 		= './assets/validasi';
@@ -194,48 +188,40 @@ class User extends CI_Controller {
 
 
 
-	public function profile()
-	{
+	public function profile(){
 		if($this->session->userdata('masuk')!=TRUE && $this->session->userdata('access')!='user'){ $url=base_url('user');redirect($url); };
 
-		$npm  = $this->session->userdata('npm');
+		$kodeKomisariat  = $this->session->userdata('kodeKomisariat');
 		$data = [
 					'content'	=> $this->folder.('profile'),
 					'section'	=> 'Profile',
-					'tampil'	=> $this->model->get_by('peserta', 'npm', $npm)->result()
+					'tampil'	=> $this->model->get_by('komisariat', 'kodeKomisariat', $kodeKomisariat)->result()
 				];
 		$this->load->view('user/template', $data);
 	}
 
-	public function edit_profile()
-	{
-		$npm = $this->session->userdata('npm');
+	public function edit_profile(){
+		$kodeKomisariat = $this->session->userdata('kodeKomisariat');
 		$data = [
 					'content'	=> $this->folder.('editProfile'),
 					'section'	=> 'Profile',
-					'tampil'	=> $this->model->get_by('peserta', 'npm', $npm)->result(),
-					'komisariat'	=> $this->model->get_all('komisariat')->result()
+					'tampil'	=> $this->model->get_by('komisariat', 'kodeKomisariat', $kodeKomisariat)->result(),
 				];
 		$this->load->view('user/template', $data);
 	}
 
-	public function updateProfile()
-	{
-		$npm 		= $this->session->userdata('npm');
-		$post 		= $this->input->post();
+	public function updateProfile(){
+		$kodeKomisariat = $this->session->userdata('kodeKomisariat');
+		$post 			= $this->input->post();
 
-		$validasi 	= $this->form_validation->set_rules($this->validation->val_editProfile());
+		$validasi 	= $this->form_validation->set_rules($this->validation->val_komisariat());
 		if($validasi->run()==true){
 			$data = [
-						'nama'			=> $post['nama'],
-						'jk'			=> $post['jk'],
-						'tanggalLahir'	=> $post['tgl'],
-						'tempatLahir'	=> $post['tempat'],
-						'alamat'		=> $post['alamat'],
-						'noHP'			=> $post['hp'],
-						'komisariat'	=> $post['komisariat'],
+						'namaKomisariat'	=> $post['namaKomisariat'],
+						'alamatKomisariat'	=> $post['alamatKomisariat'],
+						'handphone'			=> $post['handphone'],
 					];
-			$this->model->update('peserta', 'npm', $npm, $data);
+			$update = $this->model->update('komisariat', 'kodeKomisariat', $kodeKomisariat, $data);
 			$this->session->set_flashdata('flash', '<div class="alert alert-success alert-dismissible fade show" role="alert">Data berhasil di Ubah.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 			redirect('profile');
 
@@ -243,16 +229,14 @@ class User extends CI_Controller {
 			$data = [
 						'content'	=> $this->folder.('editProfile'),
 						'section'	=> 'Profile',
-						'tampil'	=> $this->model->get_by('peserta', 'npm', $npm)->result(),
-						'komisariat'	=> $this->model->get_all('komisariat')->result()
+						'tampil'	=> $this->model->get_by('komisariat', 'kodeKomisariat', $kodeKomisariat)->result(),
 					];
 			$this->load->view('user/template', $data);
 		}
 	}
 
 
-	public function password()
-	{
+	public function password(){
 		$data = [
 					'content'	=> $this->folder.('password'),
 					'section'	=> 'Profile',
@@ -260,11 +244,10 @@ class User extends CI_Controller {
 		$this->load->view('user/template', $data);
 	}
 
-	public function updatePassword()
-	{
-		$npm 		= $this->session->userdata('npm');
-		$cek 		= $this->model->get_by($this->table, 'npm', $npm)->result_array();
-		$post 		= $this->input->post();
+	public function updatePassword(){
+		$kodeKomisariat = $this->session->userdata('kodeKomisariat');
+		$cek 			= $this->model->get_by("komisariat", 'kodeKomisariat', $kodeKomisariat)->result_array();
+		$post 			= $this->input->post();
 
 		$validasi 	= $this->form_validation->set_rules($this->validation->val_password());
 		if($validasi->run()==true){
@@ -272,7 +255,7 @@ class User extends CI_Controller {
 			if(password_verify($old, $cek[0]['password']))
 			{
 				$data = [ 'password' => password_hash($post['newPass'], PASSWORD_DEFAULT)];
-				$this->model->update($this->table, 'npm', $npm, $data);
+				$this->model->update('komisariat', 'kodeKomisariat', $kodeKomisariat, $data);
 				$this->session->set_flashdata('flash', '<div class="alert alert-success alert-dismissible fade show" role="alert">Password Berhasil Diubah.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 				redirect('profile');
 			}else{
@@ -291,32 +274,27 @@ class User extends CI_Controller {
 
 
 
-	public function login()
-	{
+	public function login(){
 		if($this->session->userdata('masuk')==TRUE && $this->session->userdata('access')=='user'){ $url=base_url('user');redirect($url); };
-
 		$this->load->view('user/login');
 	}
 
-	public function auth()
-	{
+	public function auth(){
 		if($this->session->userdata('masuk')==TRUE && $this->session->userdata('access')=='user'){ $url=base_url('user');redirect($url); };
-
 			$user 	= $this->input->post('username');
 			$pass 	= $this->input->post('password');
-			$cek 	= $this->model->get_by($this->table, 'username' ,$user)->row_array();
+			$cek 	= $this->model->get_by("komisariat", 'username' ,$user)->row_array();
 			$validasi = $this->form_validation->set_rules($this->validation->val_login());
-			if($validasi->run()==false)
-			{
+			if($validasi->run()==false){
 				$this->load->view('user/login');
 			}else{
 				if($cek){
 					if(password_verify($pass, $cek['password'])){
 						$data = [
-							'masuk'		=> true,
-							'access'	=> 'user',
-							'npm'		=> $cek['npm'],
-							'angkatan'	=> $cek['angkatan'],
+							'masuk'				=> true,
+							'access'			=> 'user',
+							'kodeKomisariat'	=> $cek['kodeKomisariat'],
+							'namaKomisariat'	=> $cek['namaKomisariat'],
 							];
 						$this->session->set_userdata($data);
 						redirect('profile');

@@ -17,9 +17,8 @@
         <table class="table table-bordered " id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th >Angkatan</th>
               <th >Seleksi</th>
-              <th >Nama</th>
+              <th >Nama Komisariat</th>
               <th >Kegiatan</th>
               <th width="75px">Jabatan</th>
               <th >Foto</th>
@@ -33,11 +32,11 @@
               $idd= $t->idValidasi;
               ?>
             <tr>
-              <td><?=$t->angkatan ?></td>
+
               <td><?=$t->tahunSeleksi ?></td>
-              <td><?=$t->nama ?></td>
+              <td><?=$t->namaKomisariat ?></td>
               <td><?=$t->kegiatan?></td>
-              <td><?php if($t->jabatan==1){echo 'Ketua Panitia';}elseif($t->jabatan==2){echo 'Sekertaris';}elseif ($t->jabatan==3){echo 'Bendahara';}elseif ($t->jabatan==4){echo 'CO';}else{echo 'Anggota';} ?></td>
+              <td><?php if($t->tingkatan==1){echo 'Nasional';}elseif($t->tingkatan==2){echo 'Provinsi';}elseif ($t->tingkatan==3){echo 'Kabupaten / Kota';}elseif ($t->tingkatan==4){echo 'Universitas';}else{echo 'Fakultas';} ?></td>
               <td>
                 <a href="#" title="Detail" data-toggle="modal" data-target="#exampleModalLong<?=$idd?>">
                   <img src="<?=base_url('assets/validasi/'.$t->foto)?>" width=80px>    
@@ -46,7 +45,7 @@
               <td><div class='btn btn-sm btn-danger' title='Data Tidak Valid'><i class='fa fa-times'></i> Invalid</div>
               </td>
               <td>
-                <a href='<?=base_url('admin/validasi/validStatus/'.$id.'/'.$t->npm.'/'.$t->tahunSeleksi) ?>' class='btn btn-sm btn-success' title='Data Valid'><i class='fa fa-check'></i> Valid</a>
+                <a href='<?=base_url('admin/validasi/validStatus/'.$id.'/'.$t->kodeKomisariat.'/'.$t->tahunSeleksi) ?>' class='btn btn-sm btn-success' title='Data Valid'><i class='fa fa-check'></i> Valid</a>
                 <button href="" onclick="deleteConfirm('<?=base_url('admin/validasi/delete/'.$id) ?>')" class="btn btn-sm btn-secondary" title="Hapus" data-target="#modalDelete" data-toggle="modal">Hapus</button>
               </td>
             </tr>

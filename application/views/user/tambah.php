@@ -34,16 +34,16 @@
                 </div>
                 <div class="form-group row pb-3">
                   <div class="col-sm-6">
-                    <label class="text-dark font-weight-bold">Jabatan</label>
-                    <select class="form-control text-dark" name="jabatan">
-                      <option value="">--Pilih Jabatan--</option>
-                      <option value="1" <?=set_select('jabatan','1')?> >Ketua Panitia</option>
-                      <option value="2" <?=set_select('jabatan','2')?> >Sekertaris</option>
-                      <option value="3" <?=set_select('jabatan','3')?> >Bendahara</option>
-                      <option value="4" <?=set_select('jabatan','4')?> >Ketua CO</option>
-                      <option value="5" <?=set_select('jabatan','5')?> >Anggota</option>
+                    <label class="text-dark font-weight-bold">Tingkatan</label>
+                    <select class="form-control text-dark" name="tingkatan">
+                      <option value="">--Pilih Tingkatan--</option>
+                      <option value="1" <?=set_select('tingkatan','1')?> >Nasional</option>
+                      <option value="2" <?=set_select('tingkatan','2')?> >Provinsi</option>
+                      <option value="3" <?=set_select('tingkatan','3')?> >Kabupaten / Kota</option>
+                      <option value="4" <?=set_select('tingkatan','4')?> >Universitas</option>
+                      <option value="5" <?=set_select('tingkatan','5')?> >Fakultas</option>
                     </select>
-                    <?=form_error('jabatan', "<small class='text-danger'>",'</small>') ?>
+                    <?=form_error('tingkatan', "<small class='text-danger'>",'</small>') ?>
                   </div>
                 </div>
                 <div class="form-group">
@@ -62,7 +62,7 @@
                 Peringatan :
                 <ul>
                   <li>Data yang sudah diupload tidak bisa diubah, anda harus cermat dan teliti sebelum melakukan upload data.</li>
-                  <li>Foto yang diupload hanya yang berextensi <b>JPG</b>, <b>JPEG</b>, dan <b>PNG</b> dan ukuran maksimal file hanya <b>2 MB</b></li>
+                  <li>Foto yang diupload hanya yang berekstensi <b>JPG</b>, <b>JPEG</b>, dan <b>PNG</b> dan ukuran maksimal file hanya <b>2 MB</b></li>
                 </ul>
               </div>
             </div>

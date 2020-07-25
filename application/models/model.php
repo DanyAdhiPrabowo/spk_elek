@@ -56,42 +56,37 @@ class Model extends CI_Model{
 	}
 
 
-	public function tValidasi()
-	{
+	public function tValidasi(){
 		$this->db->select('*');
         $this->db->from('validasi');
-        $this->db->join('peserta','validasi.npm=peserta.npm');
+        $this->db->join('komisariat','validasi.kodeKomisariat=komisariat.kodeKomisariat');
         $this->db->where('validasi.statusValidasi=0');
         $query = $this->db->get();
         return $query->result();
 	}
 
-	public function tInvalid()
-	{
+	public function tInvalid(){
 		$this->db->select('*');
         $this->db->from('validasi');
-        $this->db->join('peserta','validasi.npm=peserta.npm');
+        $this->db->join('komisariat','validasi.kodeKomisariat=komisariat.kodeKomisariat');
         $this->db->where('validasi.statusValidasi=1');
         $query = $this->db->get();
         return $query->result();
 	}
 
-	public function tValid()
-	{
+	public function tValid(){
 		$this->db->select('*');
         $this->db->from('validasi');
-        $this->db->join('peserta','validasi.npm=peserta.npm');
+        $this->db->join('komisariat','validasi.kodeKomisariat=komisariat.kodeKomisariat');
         $this->db->where('validasi.statusValidasi=2');
         $query = $this->db->get();
         return $query->result();
 	}
 
-	public function matrik($thn=null, $angkatan=null)
-	{
-		return	$this->db->select('a.*, b.nama')
+	public function matrik($thn=null){
+		return	$this->db->select('a.*, b.namaKomisariat')
         		->from('matrik as a')
-        		->join('peserta as b','a.npm=b.npm', 'inner')
-        		->where("a.angkatan=$angkatan")
+        		->join('komisariat as b','a.kodeKomisariat=b.kodeKomisariat', 'inner')
         		->where("a.tahunSeleksi=$thn")
          		->get()->result();
 	}
@@ -104,42 +99,22 @@ class Model extends CI_Model{
 						 ->get('tahun');
 	}
 
-	public function getAngkatan()
-	{
-		return 	$this->db->distinct()
-						 ->select('angkatan')
-						 ->order_by('angkatan','DESC')
-						 ->get('peserta');
-	}
 
-	public function getAngkatanByTahun($tahun=null)
-	{
-		return 	$this->db->distinct()
-						 ->select('angkatan')
-						 ->order_by('angkatan','DESC')
-						 ->where("tahunSeleksi=$tahun")
-						 ->where("statusValidasi=2")
-						 ->get('validasi');
-	}
+	public function maxKriteria($thn=null){
 
-	public function maxKriteria($thn=null, $angkatan=null)
-	{
-
-		$this->db->select_max('ketua');
-		$this->db->select_max('sekertaris');
-		$this->db->select_max('bendahara');
-		$this->db->select_max('co');
-		$this->db->select_max('anggota');
+		$this->db->select_max('nasional');
+		$this->db->select_max('provinsi');
+		$this->db->select_max('kabupatenKota');
+		$this->db->select_max('universitas');
+		$this->db->select_max('fakultas');
         $this->db->from('matrik as a');
-        $this->db->join('peserta as b','a.npm=b.npm', 'left');
+        $this->db->join('komisariat as b','a.kodeKomisariat=b.kodeKomisariat', 'left');
         $this->db->where("a.tahunSeleksi=$thn");
-        $this->db->where("a.angkatan=$angkatan");
         $query = $this->db->get();
         return $query->result();
 	}
 
-	public function bagi($angka,$pembagi)
-	{
+	public function bagi($angka,$pembagi){
 		if($pembagi!=0){
 			$hasil=$angka/$pembagi;
 		}else{
@@ -166,12 +141,10 @@ class Model extends CI_Model{
 		}
 	}
 
-	public function getRangking($thn=null, $angkatan=null)
-	{
-		$this->db->select('a.*, b.nama');
+	public function getRangking($thn=null){
+		$this->db->select('a.*, b.namaKomisariat');
         $this->db->from('rangking as a');
-        $this->db->join('peserta as b','a.npm=b.npm', 'left');
-        $this->db->where("a.angkatan=$angkatan");
+        $this->db->join('komisariat as b','a.kodeKomisariat=b.kodeKomisariat', 'left');
         $this->db->where("a.tahunSeleksi=$thn");
         $query = $this->db->get();
         return $query->result();
@@ -179,12 +152,11 @@ class Model extends CI_Model{
 
 
 	// hanya tampil di halaman user
-	public function getRangkingUser($thn=null, $angkatan=null)
+	public function getRangkingUser($thn=null)
 	{
-		$this->db->select('a.*, b.nama, b.komisariat');
+		$this->db->select('a.*, b.namaKomisariat');
         $this->db->from('rangking as a');
-        $this->db->join('peserta as b','a.npm=b.npm', 'left');
-        $this->db->where("a.angkatan=$angkatan");
+        $this->db->join('komisariat as b','a.kodeKomisariat=b.kodeKomisariat', 'left');
         $this->db->where("a.tahunSeleksi=$thn");
         $query = $this->db->get();
         return $query->result();
@@ -195,8 +167,8 @@ class Model extends CI_Model{
 	{
 		$this->db->select('*');
         $this->db->from('rangking');
-        $this->db->join('peserta','rangking.npm=peserta.npm');
-        $this->db->where("peserta.tahun=$tahun");
+        $this->db->join('komisariat','rangking.kodeKomisariat=komisariat.kodeKomisariat');
+        $this->db->where("komisariat.tahun=$tahun");
         $query = $this->db->get();
         return $query->result();
 	}
