@@ -93,13 +93,13 @@ class Validasi extends CI_Controller {
 			if($tingkatan==1){
 				$dati 	= ['nasional'=> 1];
 			}elseif ($tingkatan==2) {
-				$dati 	= ['sekertaris'=> 1];
+				$dati 	= ['provinsi'=> 1];
 			}elseif ($tingkatan==3) {
-				$dati 	= ['bendahara'=> 1];
+				$dati 	= ['kabupatenKota'=> 1];
 			}elseif ($tingkatan==4) {
-				$dati 	= ['co'=> 1];
+				$dati 	= ['universitas'=> 1];
 			}else{
-				$dati 	= ['anggota'=> 1];
+				$dati 	= ['fakultas'=> 1];
 			}	
 			$this->model->update2('matrik', 'kodeKomisariat', $kodeKomisariat, "tahunSeleksi", $tahunSeleksi, $dati);
 
