@@ -45,8 +45,6 @@ class Validasi extends CI_Controller {
 		$this->load->view('template/template', $data);
 	}
 
-
-
 	public function invalidStatus($id=null){
 		if(!isset($id)) show_404();
 		$id = str_replace(['-','_','~'],['=','+','/'],$id);
@@ -137,6 +135,16 @@ class Validasi extends CI_Controller {
 
 
 		}
+	}
+
+	// Delete invalid record
+	public function delete($id=null){
+		if(!isset($id)) show_404();
+		$id = str_replace(['-','_','~'],['=','+','/'],$id);
+		$id = $this->encryption->decrypt($id);
+		$this->model->delete($this->table, 'idValidasi', $id);
+		$this->session->set_flashdata('flash', '<div class="alert alert-danger alert-dismissible fade show" role="alert">Data telah di hapus.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+		redirect('admin/validasi/invalid');
 	}
 
 }
